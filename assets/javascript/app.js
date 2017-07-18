@@ -44,9 +44,10 @@ function getGIF() {
 				var gifURLAnimate = results[i].images.fixed_height.url;
 			
 				var gifStill = $("<img>").attr("src", gifURLStill);
-				var gifAnimate = $("<img>").attr("src", gifURLAnimate);
 				gifStill.addClass("gif");
 				gifStill.attr("data-state", "still");
+				gifStill.attr("data-still-url", gifURLStill);
+				gifStill.attr("data-animated-url", gifURLAnimate);
 
 			
 				resultsDiv.prepend(gifStill);
@@ -59,11 +60,11 @@ function getGIF() {
 			var state = $(this).attr("data-state");
 
 				if( state === "still") {
-					$(this).attr('src', gifURLAnimate);
+					$(this).attr('src', $(this).attr("data-animated-url"));
 					$(this).attr("data-state", "animate");
 				
 				} else {
-					$(this).attr('src', gifURLStill);
+					$(this).attr('src', $(this).attr("data-still-url"));
 					$(this).attr("data-state", "still");
 				
 				}
