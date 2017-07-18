@@ -1,0 +1,14 @@
+.results {
+	float: left;
+	margin: 10px;
+}
+
+.animal {
+	margin: 10px;
+
+}
+
+#animal-form {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}

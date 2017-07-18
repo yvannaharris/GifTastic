@@ -30,28 +30,44 @@ function getGIF() {
 		method: "GET"
 	}).done(function(response) {
 
-	$("#animals").empty();
+		$("#animals").empty();
 		
-	var results = response.data;
+		var results = response.data;
 	
-		for (var i = 0; i < results.length; i++) {
-			var resultsDiv = $("<div class='results'>");
-			var rating = results[i].rating;
-			var r =  $("<p>").text("Rating:" + rating);
-			resultsDiv.append(r);
+			for (var i = 0; i < results.length; i++) {
+				var resultsDiv = $("<div class='results'>");
+				var rating = results[i].rating.toUpperCase();
+				var r =  $("<p>").text("Rating: " + rating);
+				resultsDiv.append(r);
 
-			var gifURLStill = results[i].images.fixed_height_still.url;
-			var gifURLAnimate = results[i].images.fixed_height.url;
+				var gifURLStill = results[i].images.fixed_height_still.url;
+				var gifURLAnimate = results[i].images.fixed_height.url;
 			
-			var gifStill = $("<img>").attr("src", gifURLStill);
-			gifStill.addClass("gif");
-			gifStill.attr("data-state", "still");
+				var gifStill = $("<img>").attr("src", gifURLStill);
+				var gifAnimate = $("<img>").attr("src", gifURLAnimate);
+				gifStill.addClass("gif");
+				gifStill.attr("data-state", "still");
+
 			
-			resultsDiv.append(gifStill);
+				resultsDiv.prepend(gifStill);
 			
 
-			$("#animals").append(resultsDiv);
-		}
+				$("#animals").append(resultsDiv);
+			}
+
+		$(".gif").on("click", function() {
+			var state = $(this).attr("data-state");
+
+				if( state === "still") {
+					$(this).attr('src', gifURLAnimate);
+					$(this).attr("data-state", "animate");
+				
+				} else {
+					$(this).attr('src', gifURLStill);
+					$(this).attr("data-state", "still");
+				
+				}
+		});
 	});
 	
 };
